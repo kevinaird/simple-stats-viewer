@@ -75,7 +75,7 @@ export function C3ReChart({
   const [legendItems, setLegendItems] = useState(false);
 
   const getDefaultOpacity = col => {
-    return col.type == "area" ? 0.2 : 0.6;
+    return col.type === "area" ? 0.2 : 0.6;
   };
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export function C3ReChart({
     setXIsTime(isXTime);
 
     const hasBars =
-      data.data.type == "bar" ||
+      data.data.type === "bar" ||
       (data.data.types &&
         Object.keys(data.data.types)
           .map(t => data.data.types[t])
@@ -127,7 +127,7 @@ export function C3ReChart({
 
     const cols = data.data.columns
       .map((cols, i) => {
-        if (i == xIndex) return false;
+        if (i === xIndex) return false;
         const label = cols[0];
         const type =
           data.data.types && data.data.types[label]
@@ -157,14 +157,14 @@ export function C3ReChart({
     setColumns(cols);
 
     if (data.axis && data.axis.y && data.axis.y.label) {
-      if (typeof data.axis.y.label == "string") setYLabel(data.axis.y.label);
-      else if (typeof data.axis.y.label.text == "string")
+      if (typeof data.axis.y.label === "string") setYLabel(data.axis.y.label);
+      else if (typeof data.axis.y.label.text === "string")
         setYLabel(data.axis.y.label.text);
     }
 
     if (data.axis && data.axis.x && data.axis.x.label) {
-      if (typeof data.axis.x.label == "string") setXLabel(data.axis.x.label);
-      else if (typeof data.axis.x.label.text == "string")
+      if (typeof data.axis.x.label === "string") setXLabel(data.axis.x.label);
+      else if (typeof data.axis.x.label.text === "string")
         setXLabel(data.axis.x.label.text);
     } /*else if (data.axis && data.axis.x && data.axis.x.type == "timeseries") {
       setXLabel("Time");
@@ -172,8 +172,8 @@ export function C3ReChart({
 
     if (data.axis && data.axis.y2 && data.axis.y2.show === true) {
       setHasY2(true);
-      if (typeof data.axis.y2.label == "string") setYLabel2(data.axis.y2.label);
-      else if (typeof data.axis.y2.label.text == "string")
+      if (typeof data.axis.y2.label === "string") setYLabel2(data.axis.y2.label);
+      else if (typeof data.axis.y2.label.text === "string")
         setYLabel2(data.axis.y2.label.text);
     }
   }, [data]);
@@ -184,7 +184,7 @@ export function C3ReChart({
     const cols = columns.map(col => ({
       ...col,
       opacity:
-        focusedCol == -1 ? getDefaultOpacity(col) : getDefaultOpacity(col) * 0.3
+        focusedCol === -1 ? getDefaultOpacity(col) : getDefaultOpacity(col) * 0.3
     }));
     if (focusedCol >= 0)
       cols[focusedCol].opacity = getDefaultOpacity(cols[focusedCol]) * 1.5;
@@ -192,8 +192,8 @@ export function C3ReChart({
   };
 
   useEffect(() => {
-    if (columns.length == 0) return;
-    if (typeof getRef != "function") return;
+    if (columns.length === 0) return;
+    if (typeof getRef !== "function") return;
     getRef({
       data: {
         colors: () => {
@@ -209,7 +209,7 @@ export function C3ReChart({
           setShowLegend(true);
           setLegendItems(
             items.map(n => {
-              const column = columns.filter(c => c.label == n)[0];
+              const column = columns.filter(c => c.label === n)[0];
               return {
                 dataKey: column.label,
                 value: column.label,
@@ -323,7 +323,7 @@ export function C3ReChart({
           />
         )}
         {columns.map((column, i) =>
-          column.type == "line" ? (
+          column.type === "line" ? (
             <Line
               key={column.label}
               type="monotone"
@@ -339,7 +339,7 @@ export function C3ReChart({
               connectNulls={true}
               {...(disableDot ? { dot: false } : {})}
             />
-          ) : column.type == "area" ? (
+          ) : column.type === "area" ? (
             <Area
               key={column.label}
               type="monotone"
@@ -361,7 +361,7 @@ export function C3ReChart({
                 />
               )}
             </Area>
-          ) : column.type == "bar" ? (
+          ) : column.type === "bar" ? (
             <Bar
               key={column.label}
               dataKey={column.label}

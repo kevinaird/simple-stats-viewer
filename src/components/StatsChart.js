@@ -28,7 +28,7 @@ export default function StatsChart({ stat, label }) {
             }
         });
 
-    },[stat]);
+    },[stat,label]);
 
     if (!chartData) return "";
 

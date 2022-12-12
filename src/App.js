@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Loader from './components/Loader';
-import Collapse from 'react-bootstrap/Collapse';
-import yaml from "yaml";
-
-import { MdNavigateNext, MdKeyboardArrowDown } from 'react-icons/md';
-import StatsChart from "./components/StatsChart";
 import useWindowDimensions from "./utils/WindowDimensions";
 import StatsReport from "./components/StatsReport";
 
@@ -21,7 +16,7 @@ function App() {
     .then(res => res.text())
     .then(res => {
       const data = res.split(/\n/g).map(line=>{
-        const [ id, label ] = line.split(/\,/g);
+        const [ id, label ] = line.split(/,/g);
         return { id, label };
       });
       setReportList(data);
@@ -44,7 +39,7 @@ function App() {
           <ul className="list-unstyled ps-0">
             {reportList.map(report=><li key={report.id} className="mb-1">
               <button 
-                className={`btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed  ${selectedReport==report.id?"bg-info":" text-bg-dark"}`} 
+                className={`btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed  ${selectedReport===report.id?"bg-info":" text-bg-dark"}`} 
                 onClick={()=>setSelectedReport(report.id)}
                 >
                 {report.label}

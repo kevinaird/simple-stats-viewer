@@ -32,7 +32,7 @@ export default function StatsReport({ reportId }) {
     .then(res=>res.text())
     .then(res=>{
       const data = res.split(/\n/g).map(line=>{
-        const [ time, label, value ] = line.split(/\,/g);
+        const [ time, label, value ] = line.split(/,/g);
         return { time: parseInt(time), label, value: parseFloat(value) };
       });
       console.log("data==>",data);
@@ -66,20 +66,20 @@ export default function StatsReport({ reportId }) {
             {Object.keys(stats).map(metricGroup=><li key={metricGroup} className="mb-1">
               <button 
                 className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" 
-                onClick={()=>setCollapse(collapse!=metricGroup?metricGroup:false)}
+                onClick={()=>setCollapse(collapse!==metricGroup?metricGroup:false)}
                 >
-                {collapse==metricGroup
+                {collapse===metricGroup
                 ?<MdNavigateNext />
                 :<MdKeyboardArrowDown />} {metricGroup}
               </button>
-              <Collapse in={collapse==metricGroup}>
+              <Collapse in={collapse===metricGroup}>
                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                   {Object.keys(stats[metricGroup]).map(metric=><li 
                     key={metric}
                     className="ms-5">
                     <a 
                       style={{fontSize:"small"}}
-                      className={`link-dark d-inline-flex text-decoration-none rounded ps-1 pe-1 ${selectedMetric && metric==selectedMetric.metric?'bg-info':''}`}
+                      className={`link-dark d-inline-flex text-decoration-none rounded ps-1 pe-1 ${selectedMetric && metric===selectedMetric.metric?'bg-info':''}`}
                       onClick={()=>setSelectedMetric({ metricGroup, metric })}
                       >
                         {metric.replace(metricGroup+"_","")}
