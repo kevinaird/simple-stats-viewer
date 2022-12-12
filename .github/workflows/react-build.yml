@@ -33,7 +33,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source_file: 'build'
-          destination_repo: 'kevinaid/kevinaird.github.io'
+          destination_repo: 'kevinaird/kevinaird.github.io'
           destination_folder: 'simple-stats'
           user_email: 'kevinaird@gmail.com'
           user_name: 'kevinaird'
