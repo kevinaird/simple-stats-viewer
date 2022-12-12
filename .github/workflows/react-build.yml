@@ -1,0 +1,38 @@
+name: Build React App
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['main']
+  
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Set up Node.js 14.20.1
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.20.1
+          
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1.6.0
+
+      - name: Build web bundle
+        run: npm run build
+  
+      - name: Pushes bundle 
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source_file: 'build'
+          destination_repo: 'kevinaid/kevinaird.github.io'
+          destination_folder: 'simple-stats'
+          user_email: 'kevinaird@gmail.com'
+          user_name: 'kevinaird'
+          commit_message: 'Pushing built simple-stats react app'
