@@ -1,0 +1,42 @@
+
+metrics:
+  # kafka container stats - cpu, memory
+  kafka-container-stats:
+    type: container
+    name: kafka
+
+  # kafka queue stats - how many messages?
+  kafka-topic-count:
+    type: kafka
+    topic: loadrunner
+    brokers:
+      - kafka:9092
+
+  # influx container stats - cpu, memory
+  influx-contianer-stats:
+    type: container
+    name: influx
+
+  # influx data stats - how many entries? i.e. SELECT COUNT(*) FROM transactions
+  influx-record-count:
+    type: influx
+    host: influx
+    port: 8086
+    database: loadrunner
+    query: SELECT count(*) FROM transactions
+    count: count_duration
+    
+  # kafka-rest container stats - cpu, memory
+  kafka-rest-container-stats:
+    type: container
+    name: kafka-rest
+  
+  # vector container stats - cpu, memory
+  vector-container-stats:
+    type: container
+    name: vector
+
+# Write to a csv file
+output: /output/stats.csv
+interval: 5
+continueOnError: false
