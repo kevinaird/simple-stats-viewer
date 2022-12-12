@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches: ['main']
-  
+env:
+    ci: false
+
 jobs:
   build:
     name: Build
