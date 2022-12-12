@@ -39,3 +39,4 @@ jobs:
           user_email: 'kevinaird@gmail.com'
           user_name: 'kevinaird'
           commit_message: 'Pushing built simple-stats react app'
+          use_rsync: true
