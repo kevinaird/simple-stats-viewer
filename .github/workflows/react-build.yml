@@ -5,7 +5,7 @@ on:
   push:
     branches: ['main']
 env:
-    ci: false
+    CI: false
 
 jobs:
   build:
