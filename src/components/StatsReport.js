@@ -21,13 +21,13 @@ export default function StatsReport({ reportId }) {
   useEffect(()=>{
     setLoading(true);
     let config = {};
-    fetch(`/reports/${reportId}/stats.yml`)
+    fetch(`${process.env.PUBLIC_URL || ""}/reports/${reportId}/stats.yml`)
     .then(res=>res.text())
     .then(res=>{
       config = yaml.parse(res);
       console.log("config==>",config);
       setConfig(config);
-      return fetch(`/reports/${reportId}/stats.csv`);
+      return fetch(`${process.env.PUBLIC_URL || ""}/reports/${reportId}/stats.csv`);
     })
     .then(res=>res.text())
     .then(res=>{

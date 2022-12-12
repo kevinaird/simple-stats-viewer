@@ -12,7 +12,7 @@ function App() {
 
   useEffect(()=>{
     setLoading(true);
-    fetch(`/reports/list.csv`)
+    fetch(`${process.env.PUBLIC_URL || ""}/reports/list.csv`)
     .then(res => res.text())
     .then(res => {
       const data = res.split(/\n/g).map(line=>{
