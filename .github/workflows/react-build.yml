@@ -6,7 +6,7 @@ on:
     branches: ['main']
 env:
     CI: false
-    PUBLIC_URL: /simple-stats
+    PUBLIC_URL: /simple-stats/build
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: 'build/*'
+          source_file: 'build'
           destination_repo: 'kevinaird/kevinaird.github.io'
           destination_folder: 'simple-stats'
           user_email: 'kevinaird@gmail.com'
