@@ -39,6 +39,12 @@ export default function StatsReport({ reportId }) {
 
       const stats = {};
       for(let metric in config.metrics) {
+        
+        if(config.metrics[metric].type=="embed"){
+            stats[metric] = {[`${metric}_embed`]:[]};
+            continue;
+        }
+
         const re = new RegExp(`^${metric}`);
         const filteredData = data.filter(d=>re.test(d.label));
         stats[metric] = group(filteredData,({label})=>label);
@@ -90,16 +96,21 @@ export default function StatsReport({ reportId }) {
             </li>)}
           </ul>
         </div>
-        {selectedMetric && <div 
+        {config && selectedMetric && <div 
         style={{width: "calc(100% - 360px)", height, overflowY:"auto"}} 
         className="p-3">
           <a className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
             <span className="fs-5 fw-semibold">{selectedMetric.metric}</span>
           </a>
-          <StatsChart 
+          {config.metrics[selectedMetric.metricGroup].type=="embed"?
+          <iframe 
+            style={{width:"100%",height:"calc(100% - 70px)"}}
+            src={`${process.env.PUBLIC_URL || ""}/reports/${reportId}/${config.metrics[selectedMetric.metricGroup].href}`} 
+          />
+          :<StatsChart 
             label={selectedMetric.metric}
             stat={stats[selectedMetric.metricGroup][selectedMetric.metric]} 
-          />
+          />}
         </div>}
       </div>}
     </div>
