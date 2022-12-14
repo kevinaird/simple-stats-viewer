@@ -27,6 +27,11 @@ jobs:
 
       - name: Build web bundle
         run: npm run build
+
+      - name: Update list.csv
+        run: |
+          wget https://kevinaird.github.io/simple-stats/build/reports/list.csv
+          mv list.csv build/reports
   
       - name: Pushes bundle 
         uses: dmnemec/copy_file_to_another_repo_action@main
